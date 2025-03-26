@@ -18,7 +18,7 @@ export function createGameOverDisplay(scoreDisplay) {
     gameOverElement.style.zIndex = '1000';
     gameOverElement.style.display = 'none';
     gameOverElement.innerHTML = `
-        SHIELDS DEPLETED<br><br>
+        GAME OVER<br><br>
         <span id="finalScore" style="font-size: 24px">FINAL SCORE: 0</span><br>
         <span id="enemiesDestroyed" style="font-size: 22px; color: #3399FF; text-shadow: 0 0 10px rgba(51, 153, 255, 0.8);">ENEMIES DESTROYED: 0</span><br><br>
         <div id="starRating" style="margin: 15px 0; height: 50px; display: flex; justify-content: center; align-items: center;"></div>
@@ -101,17 +101,17 @@ export function createGameOverDisplay(scoreDisplay) {
         
         // Determine number of stars and rating text
         let starCount = 1;
-        let ratingText = "REBEL RECRUIT";
+        let ratingText = "RANK: REBEL RECRUIT";
         
         if (score >= 2000000) {
             starCount = 3;
-            ratingText = "JEDI MASTER";
+            ratingText = "RANK: JEDI MASTER";
         } else if (score >= 1000000) {
             starCount = 2;
-            ratingText = "REBEL ACE";
+            ratingText = "RANK: REBEL ACE";
         } else if (score == 0) {
             starCount = 0;
-            ratingText = "YOU SUCK!";
+            ratingText = "WOW, YOU SUCK!";
         }
         
         // Create container for label and stars
