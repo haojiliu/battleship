@@ -13,18 +13,10 @@ import { createStartScreen } from './modules/startScreen.js';
 import { createAudioSystem } from './modules/audio.js';
 import { createStarfield } from './modules/starfield.js';
 import { createPauseScreen } from './modules/pauseScreen.js';
-import { createMobileWarning } from './modules/mobileWarning.js';
 import * as explosions from './modules/explosions.js';
 
 // Create scene, camera, and renderer
 const { scene, camera, renderer } = createScene();
-
-// Check for mobile device and show warning if needed
-const mobileWarning = createMobileWarning();
-if (mobileWarning) {
-    // If on mobile, stop here
-    return;
-}
 
 // Camera settings for third-person view
 const cameraOffset = new THREE.Vector3(0, 3, 10); // Position camera behind and above the ship
