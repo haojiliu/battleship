@@ -1,3 +1,5 @@
+import { createMobileControls } from './mobileControls.js';
+
 export function createControls() {
     const keys = {
         ArrowLeft: false,
@@ -6,6 +8,9 @@ export function createControls() {
         ArrowDown: false,
         Space: false
     };
+
+    // Create mobile controls
+    const mobileControls = createMobileControls();
 
     window.addEventListener('keydown', (event) => {
         if (event.code === 'Space') {
@@ -23,10 +28,13 @@ export function createControls() {
         }
     });
 
-    return keys;
+    return {
+        keys,
+        mobileControls
+    };
 }
 
-export function updateShipPosition(ship, keys) {
+export function updateShipPosition(ship, controls) {
     const moveSpeed = 0.3;
     const bounds = {
         left: -15,
@@ -39,10 +47,14 @@ export function updateShipPosition(ship, keys) {
     let newX = ship.position.x;
     let newY = ship.position.y;
 
-    if (keys.ArrowLeft) newX -= moveSpeed;
-    if (keys.ArrowRight) newX += moveSpeed;
-    if (keys.ArrowUp) newY += moveSpeed;
-    if (keys.ArrowDown) newY -= moveSpeed;
+    // Get joystick values
+    const joystick = controls.mobileControls.getJoystickValues();
+
+    // Combine keyboard and joystick input
+    if (controls.keys.ArrowLeft || joystick.x < -0.5) newX -= moveSpeed;
+    if (controls.keys.ArrowRight || joystick.x > 0.5) newX += moveSpeed;
+    if (controls.keys.ArrowUp || joystick.y > 0.5) newY += moveSpeed;
+    if (controls.keys.ArrowDown || joystick.y < -0.5) newY -= moveSpeed;
 
     // Apply bounds
     ship.position.x = Math.max(bounds.left, Math.min(bounds.right, newX));
