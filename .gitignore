@@ -1,0 +1,21 @@
+# Comments start with a '#'
+
+# Ignore specific files
+config.ini
+debug.txt
+
+# Ignore directories and their contents
+temp/
+build/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore virtual environment files (Python)
+venv/
+*.pyc
+
+# Ignore node modules (Node.js)
+node_modules/
+
