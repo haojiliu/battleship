@@ -39,7 +39,7 @@ const ship = createShip();
 scene.add(ship);
 
 // Setup controls
-const controls = createControls();
+const keys = createControls();
 
 // Setup weapon system
 const weaponSystem = createWeaponSystem();
@@ -506,10 +506,9 @@ function animate() {
     requestAnimationFrame(animate);
     
     // Calculate ship velocity for starfield effect
-    const joystick = controls.mobileControls.getJoystickValues();
     const shipVelocity = {
-        x: controls.keys.ArrowLeft || joystick.x < -0.5 ? 0.1 : (controls.keys.ArrowRight || joystick.x > 0.5 ? -0.1 : 0),
-        y: controls.keys.ArrowUp || joystick.y > 0.5 ? -0.1 : (controls.keys.ArrowDown || joystick.y < -0.5 ? 0.1 : 0),
+        x: keys.ArrowLeft ? 0.1 : (keys.ArrowRight ? -0.1 : 0),
+        y: keys.ArrowUp ? -0.1 : (keys.ArrowDown ? 0.1 : 0),
         z: 0
     };
     
@@ -531,7 +530,8 @@ function animate() {
     
     // Update game only if not paused
     if (gameStarted && !gameOver && !pauseScreen.isPaused()) {
-        updateShipPosition(ship, controls);
+        updateShipPosition(ship, keys);
+        //updateParticles(particleSystem);
         
         // Make camera follow the ship with natural motion
         if (ship.position) {
@@ -559,9 +559,9 @@ function animate() {
             camera.lookAt(lookTarget);
         }
         
-        // Handle shooting (combine keyboard and mobile controls)
+        // Handle shooting
         const now = Date.now();
-        if ((controls.keys.Space || controls.mobileControls.isFiring()) && now - lastShotTime > 125) { // Fire rate limit: 8 shots per second
+        if (keys.Space && now - lastShotTime > 125) { // Fire rate limit: 8 shots per second
             const newLasers = weaponSystem.shoot(ship);
             newLasers.forEach(laser => scene.add(laser));
             

@@ -1,5 +1,3 @@
-import { isMobileDevice } from './utils.js';
-
 export function createInstructionsDisplay() {
     const instructionsElement = document.createElement('div');
     
@@ -18,25 +16,14 @@ export function createInstructionsDisplay() {
     instructionsElement.style.letterSpacing = '1px';
     instructionsElement.style.lineHeight = '1.5';
     
-    // Add instructions text based on device type
-    if (isMobileDevice()) {
-        instructionsElement.innerHTML = `
-            <div style="margin-bottom: 10px;">Touch Controls:</div>
-            <div style="margin-left: 15px;">• Left Joystick - Move Ship</div>
-            <div style="margin-left: 15px;">• Right Button - Fire Lasers</div>
-            <div id="sound-toggle" style="margin-top: 10px; cursor: pointer;">
-                SOUND: ON 🔊
-            </div>
-        `;
-    } else {
-        instructionsElement.innerHTML = `
-            ARROWS - Move Ship<br>
-            SPACE - Fire Lasers<br>
-            <div id="sound-toggle" style="margin-top: 10px; cursor: pointer;">
-                SOUND: ON 🔊
-            </div>
-        `;
-    }
+    // Add instructions text
+    instructionsElement.innerHTML = `
+        ARROWS - Move Ship<br>
+        SPACE - Fire Lasers<br>
+        <div id="sound-toggle" style="margin-top: 10px; cursor: pointer;">
+            SOUND: ON 🔊
+        </div>
+    `;
     
     document.body.appendChild(instructionsElement);
     
